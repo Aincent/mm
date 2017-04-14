@@ -1,0 +1,345 @@
+/** 查询表单样式 */
+#wrap-content .searchForm{
+}
+#wrap-content .searchForm .title{
+	border:1px solid #637F86;
+	height:25px;
+	color:#1B3441;
+	font-weight:bold;
+	background-color:#EEF7FA;
+	font-size:12px;
+}
+#wrap-content .searchForm .p{
+	border:1px solid #637F86;
+	height:33px;
+	font-size:12px;
+	color:#375C7B;
+	margin-top:-1px;
+}
+#wrap-content .searchForm .p .left{
+	float:left;
+	height:100%;
+	background-color:#EEF7FA;
+	border-right:1px solid #637F86;
+}
+#wrap-content .searchForm .p .label{
+	float:left;
+	width:190px;
+	margin-top:10px;
+	text-align:right;
+	font-size: 12px;
+	font-weight: bold;
+	color: #1B3441;
+}
+#wrap-content .searchForm .p .right{
+	background-color:#FFFFFF;
+	height:100%;
+	margin-left:190px;
+	padding-left:6px;
+}
+#wrap-content .searchForm .p .right input{
+	margin:6px 0 6px 0;
+}
+#wrap-content .searchForm .p .right select{
+	margin:6px 0 6px 0;
+}
+#wrap-content .searchForm .p .right .commit{
+	background-color: #103865;
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: normal;
+	font-weight: normal;
+	color: #FFFFFF;
+	height: 20px;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #1E6ABF;
+	border-right-color: #051323;
+	border-bottom-color: #051323;
+	border-left-color: #1E6ABF;
+}
+/**添加表单样式*/
+#wrap-content .form{
+}
+#wrap-content .form .title{
+	border:1px solid #637F86;
+	height:25px;
+	color:#1B3441;
+	font-weight:bold;
+	background-color:#EEF7FA;
+	font-size:12px;
+}
+#wrap-content .form .p{
+	border:1px solid #637F86;
+	height:33px;
+	font-size:12px;
+	margin-top:-1px;
+}
+#wrap-content .form .textarea{
+	height:108px;
+}
+#wrap-content .form .p .left{
+	float:left;
+	height:100%;
+	background-color:#FFFFFF;
+	border-right:1px solid #637F86;
+}
+#wrap-content .form .p .label{
+	float:left;
+	width:200px;
+	margin-top:10px;
+	text-align:right;
+	font-size: 12px;
+	color:#375C7B;
+}
+#wrap-content .form .p .right{
+	margin-left:200px;
+	background-color:#FFFFFF;
+	height:100%;
+}
+#wrap-content .form .p .right input{
+	margin:7px;
+	color: #103865;
+	border: 1px solid #50666B;
+	background-color: #E8EDEE;
+}
+#wrap-content .form .p .right textarea{
+	margin:7px;
+	color: #103865;
+	border: 1px solid #50666B;
+	background-color: #E8EDEE;
+	width:500px;
+	height:88px;
+}
+#wrap-content .form .p .right select{
+	margin:7px;
+}
+#wrap-content .form .p .right .prompt{
+	color:red;
+}
+#wrap-content .form .button{
+	height:33px;
+	text-align:center;
+}
+#wrap-content .form .button .commit{
+	background-color: #103865;
+	font-family: "宋体";
+	font-size: 12px;
+	line-height: normal;
+	font-weight: normal;
+	color: #FFFFFF;
+	height: 20px;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #1E6ABF;
+	border-right-color: #051323;
+	border-bottom-color: #051323;
+	border-left-color: #1E6ABF;
+	margin-top:5px;
+}
+/**表格样式*/
+#wrap-content .table{
+	margin-top:6px;
+}
+#wrap-content .table .title{
+	height:20px;
+	font-weight:bold;
+}
+#wrap-content .table table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	font-size: 12px;
+}
+
+#wrap-content .table table th {
+	border: 1px solid #637F86;
+	height: 20px;
+	background-color: #BBDFEA;
+}
+
+#wrap-content .table table td {
+	border: 1px solid #637F86;
+	height: 20px;
+	text-align: center;
+	background: #FFFFFF;
+	color: #375C7B;
+}
+
+#wrap-content .table .operation {
+	border-left: 1px solid #637F86;
+	border-right: 1px solid #637F86;
+	border-bottom: 1px solid #637F86;
+	color: #375C7B;
+	background-color: #FFFFFF;
+}
+
+#wrap-content .table .operation .delete {
+	border-right: 2px solid #60040E;
+	border-top: 2px solid #F70F26;
+	border-left: 2px solid #F70F26;
+	border-bottom: 2px solid #60040E;
+	background-color: #9A0716;
+	font-size: 12px;
+	font-weight: normal;
+	color: #FFFFFF;
+	height: 20px;
+}
+
+#wrap-content .table .operation .add {
+	background-color: #103865;
+	font-size: 12px;
+	line-height: normal;
+	font-weight: normal;
+	color: #FFFFFF;
+	height: 20px;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #1E6ABF;
+	border-right-color: #051323;
+	border-bottom-color: #051323;
+	border-left-color: #1E6ABF;
+}
+
+#wrap-content .table #pageBar {
+	text-align: right;
+}
+/**弹框中的表单样式*/
+.dialogForm{
+}
+.dialogForm .title{
+	border-top:1px solid #637F86;
+	border-left:1px solid #637F86;
+	border-right:1px solid #637F86;
+	height:25px;
+	color:#1B3441;
+	font-weight:bold;
+	background-color:#EEF7FA;
+	font-size:12px;
+}
+.dialogForm form .p{
+	border-top:1px solid #637F86;
+	border-left:1px solid #637F86;
+	border-right:1px solid #637F86;
+	border-bottom:1px solid #637F86;
+	margin-top:-1px;
+	height:33px;
+	font-size:12px;
+}
+.dialogForm form .textarea{
+	height:108px;
+}
+.dialogForm form .p .left{
+	float:left;
+	height:100%;
+	background-color:#FFFFFF;
+	border-right:1px solid #637F86;
+}
+.dialogForm form .p .label{
+	float:left;
+	width:112px;
+	margin-top:10px;
+	text-align:right;
+	font-size: 12px;
+	color:#375C7B;
+}
+.dialogForm form .p .right{
+	margin-left:112px;
+	background-color:#FFFFFF;
+	height:100%;
+}
+.dialogForm form .p .right input{
+	margin:7px;
+	color: #103865;
+	border: 1px solid #50666B;
+	background-color: #E8EDEE;
+}
+.dialogForm form .p .right textarea{
+	margin:7px;
+	color: #103865;
+	border: 1px solid #50666B;
+	background-color: #E8EDEE;
+	width:500px;
+	height:88px;
+}
+.dialogForm form .p .right select{
+	margin:7px;
+}
+.dialogForm form .p .right .prompt{
+	color:red;
+}
+/**弹框中的表格样式*/
+.dialogTable{
+	margin-top:6px;
+}
+.dialogTable .title{
+	
+}
+.dialogTable table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	font-size: 12px;
+}
+.dialogTable table th {
+	border: 1px solid #637F86;
+	height: 20px;
+	background-color: #BBDFEA;
+	text-align:center;
+}
+
+.dialogTable table td {
+	border: 1px solid #637F86;
+	height: 20px;
+	text-align: center;
+	background: #FFFFFF;
+	color: #375C7B;
+}
+.dialogTable .operation {
+	border-left: 1px solid #637F86;
+	border-right: 1px solid #637F86;
+	border-bottom: 1px solid #637F86;
+	color: #375C7B;
+	background-color: #FFFFFF;
+}
+
+.dialogTable .operation .button {
+	background-color: #103865;
+	font-size: 12px;
+	line-height: normal;
+	font-weight: normal;
+	color: #FFFFFF;
+	height: 20px;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #1E6ABF;
+	border-right-color: #051323;
+	border-bottom-color: #051323;
+	border-left-color: #1E6ABF;
+}
+
+

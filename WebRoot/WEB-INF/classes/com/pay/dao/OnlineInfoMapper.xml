@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pay.dao.OnlineInfoMapper">
+	<insert id="saveOnlineInfo">
+		insert into tbl_onlineinfo (id, deviceonlyid, devicetype, packagename, imei, devicemanufacturer, deviceid,
+					 osversion, imsi,appversioncode,appversionname,ourversion,umengchannel,fristtime,lasttime,count,text1,text2,text3) 
+			 values(#{id}, #{deviceonlyid}, #{devicetype}, #{packagename}, #{imei}, #{devicemanufacturer}, #{deviceid},
+			 #{osversion}, #{imsi}, #{appversioncode}, #{appversionname}, #{ourversion}, #{umengchannel}, now(), now(),1,#{text1},#{text2},#{text3})
+	</insert>
+
+	<select id="getOnlineInfo" resultType="com.pay.entity.OnlineInfo">
+		select * from tbl_onlineinfo  where id=#{id}
+	</select>
+	
+	<select id="getOnlineInfoExist" resultType="int">
+		select count(1) from tbl_onlineinfo where id=#{id}
+	</select>
+
+	<update id="updateOnlineInfo">
+		update tbl_onlineinfo 
+		<set>
+			 lasttime =  now() ,
+		<if test="text1 !='' and text1 != null "> 
+			text1 = #{text1}, 
+		</if>
+		<if test="text2 !='' and text2 != null "> 
+			text2 = #{text2},
+		</if>
+		<if test="text3 !='' and text3 != null "> 
+			text3 = #{text3},
+		</if>
+			count = count +1 
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

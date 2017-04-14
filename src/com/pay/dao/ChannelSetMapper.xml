@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pay.dao.ChannelSetMapper">
+	<resultMap type="com.pay.entity.ChannelSet" id="ChannelSet">
+		<result property="name" column="channel_id" />
+		<result property="count" column="deduct_count" />
+		<result property="amount" column="min_amount" />
+		<result property="chilcount" column="chil_count"/>
+		<result property="createtime" column="create_time" />
+		<result property="updatetime" column="update_time" />
+	</resultMap>
+
+	<!-- 根据查询数据 -->
+	<select id="getChannelSetList" resultMap="ChannelSet">
+		select * 
+		from tbl_channel_setting  
+		<where>
+		<if test="userType == 1 "> 1=2 </if>
+		<if test="userType == 3 "> 1=1 </if>
+		<if test="userType == 2 "> channel_id in (select channel_name from tbl_channel_refresh where channel_owner=#{userChannel}) </if>
+		</where>
+		order by update_time desc limit #{startNum},#{pageSize}
+	</select>
+	<select id="getChannelSetListCount" resultType="int">
+		select count(1) from tbl_channel_setting
+		<where>
+		<if test="userType == 1 "> 1=2 </if>
+		<if test="userType == 3 "> 1=1 </if>
+		<if test="userType == 2 "> channel_id in (select channel_name from tbl_channel_refresh where channel_owner=#{userChannel}) </if>
+		</where>
+	</select>
+	<select id="getChannelSetCount" resultType="int">
+		select count(1) from tbl_channel_setting where channel_id=#{channelName}
+	</select>
+	<insert id="insertChannelSet">
+		insert into tbl_channel_setting (channel_id, deduct_count, min_amount,chil_count, create_time, update_time) 
+			  values(#{channelSet.name}, #{channelSet.count}, #{channelSet.amount},#{channelSet.chilcount}, now(), now())
+	</insert>
+	<update id="updateChannelSet">
+		update tbl_channel_setting set deduct_count = #{channelSet.count}, min_amount = #{channelSet.amount},chil_count = #{channelSet.chilcount},update_time = now()
+		 where channel_id = #{channelSet.name}
+	</update>
+	<delete id="deleteChannelSet">
+		delete from tbl_channel_setting where channel_id = #{channelName}
+	</delete>
+	<select id="getChannelExist" resultType="int">
+		select count(1) from tbl_order 
+		<where>
+		additionalInfo=#{channelName}
+		<if test="userType != 2 and userType != 3 "> and 1=2 </if>
+		<if test="userType == 2 "> and additionalInfo in (select channel_name from tbl_channel_refresh where channel_owner=#{userChannel}) </if>
+		</where>
+	</select>
+</mapper>

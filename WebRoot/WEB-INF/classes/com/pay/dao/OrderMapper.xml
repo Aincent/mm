@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.pay.dao.OrderMapper">
+	<insert id="saveOrder">
+		insert into tbl_order (memberid, terminalid, transid, result, resultdesc, factmoney, additionalInfo,
+					 succtime, bankid,createtime,paytype) 
+			 values(#{memberID}, #{terminalID}, #{transID}, #{result}, #{resultDesc}, #{factMoney}, #{additionalInfo},
+			 from_unixtime(#{succTime}), #{bankID},now(),0)
+	</insert>
+	
+	<insert id="saveOrderJP">
+		insert into tbl_order (terminalid, transid, result,resultdesc,factmoney, additionalInfo,succtime, bankid,createtime,paytype) 
+			 values(#{terminalID}, #{transID}, #{result},#{resultdesc}, #{factMoney}, #{additionalInfo},from_unixtime(#{succTime}), #{bankID},now(),1)
+	</insert>
+
+	<insert id="saveOrdergongdapeng">
+		insert into tbl_order (memberid, terminalid, transid, result, resultdesc, factmoney, additionalInfo, bankid,succtime, createtime, paytype) 
+			 values(#{memberID}, #{terminalID}, #{transID}, #{result}, #{resultDesc}, #{factMoney}, #{additionalInfo},#{bankID},now(),now(),2) 
+	</insert>
+	
+	<insert id="saveOrderhzyl">
+		insert into tbl_order (memberid, terminalid, transid, result, factmoney, additionalInfo, bankid,succtime, createtime, paytype) 
+			 values(#{memberID}, #{terminalID}, #{transID}, #{result}, #{factMoney}, #{additionalInfo},#{bankID},from_unixtime(#{succTime}),now(),3) 
+	</insert>
+	
+
+	<insert id="saveOrderJuBao">
+		insert into tbl_order (memberid, terminalid, transid, result, resultdesc, factmoney, additionalInfo,
+					 succtime, bankid,createtime) 
+			 values(#{memberID}, #{terminalID}, #{transID}, #{result}, #{resultDesc}, #{factMoney}, #{additionalInfo},
+			 #{succTime}, #{bankID},now())
+	</insert>
+	
+	<insert id="saveNewOrderJP">
+			insert into tbl_order (terminalid, transid, memberid,result,resultdesc,factmoney, additionalInfo,succtime, bankid,createtime,paytype) 
+			 values(#{terminalID}, #{transID},#{memberID}, #{result},#{resultDesc}, #{factMoney}, #{additionalInfo},from_unixtime(#{succTime}), #{bankID},now(),4)
+	</insert>
+	
+	<insert id="saveOrderWeiQianBao">
+			insert into tbl_order (terminalid, transid, memberid,result,resultdesc,factmoney, additionalInfo,succtime, bankid,createtime,paytype) 
+			 values(#{terminalID}, #{transID},#{memberID}, #{result},#{resultDesc}, #{factMoney}, #{additionalInfo},from_unixtime(#{succTime}), #{bankID},now(),5)
+	</insert>
+	
+	
+	<insert id="saveOrderShunShouYun">
+		insert into tbl_order (memberid, terminalid, transid, result, resultdesc, factmoney, additionalInfo, bankid,succtime, createtime, paytype) 
+			values(#{memberID}, #{terminalID}, #{transID}, #{result}, #{resultDesc}, #{factMoney}, #{additionalInfo},#{bankID},now(),now(),6) 
+	</insert>
+	
+	<select id="getOrderInfoExist" resultType="int">
+		select count(1) from tbl_order where transid=#{transid}
+	</select>
+	
+	<select id="getOrderInfoExistByMemberID" resultType="int">
+		select count(1) from tbl_order where memberid=#{memberid}
+	</select>
+	
+	<select id="getOrderInfo" resultType="hashmap">
+		select 
+			additionalinfo,count(1) count,sum(factmoney) money 
+		from tbl_order 
+		where result = 1 and succtime between str_to_date(#{startTime},'%Y%m%d') 
+		and date_add(str_to_date(#{endTime},'%Y%m%d'), interval 1 day)
+		group by additionalinfo
+	</select>
+	
+	<resultMap type="com.pay.entity.OrderInfo" id="OrderInfo">
+		<result property="orderId" column="transid" />
+		<result property="orderChannel" column="orderChannel" />
+		<result property="orderState" column="result" />
+		<result property="price" column="factmoney" />
+		<result property="userName" column="additionalInfo" />
+		<result property="owner" column="channel_owner" />
+		<result property="big" column="big_channel" />
+		<result property="createtime" column="createtime" />
+	</resultMap>
+
+	<select id="getOrderInfoList" resultMap="OrderInfo">
+		select transid,additionalInfo,result,factmoney,additionalInfo,createtime,channel_owner,big_channel
+		from tbl_order  LEFT OUTER JOIN tbl_channel_refresh ON additionalInfo=channel_name
+		<where>
+		<if test="channelname !='' and channelname != null "> and additionalInfo like '%${channelname}%' </if>
+		<if test="startTime !='' and startTime != null "> and createtime &gt;= '${startTime} 00:00:00' </if>
+		<if test="endTime !='' and endTime != null "> and createtime &lt;= '${endTime} 23:59:59' </if>
+		<if test="userType ==1"> and additionalInfo like '${userChannel}%' and result=1 </if>
+		<if test="userType ==5"> and additionalInfo like '${userChannel}%' and result=3 </if>
+		<if test="userType == 2 "> and result in (1,2) </if>
+		<if test="userChannel == 'admin'"> and result in (1,2,3) </if>
+		<if test="userChannel =='' or userChannel == null "> and 1=2 </if>
+		<if test="orderState !='' and orderState != null and orderState != 0"> and result=${orderState} </if>
+		<if test="userType == 2 "> and channel_owner = '${userChannel}' </if>
+		<if test="userType == 4 "> and common_type = ${channelType}  and result= 1 </if>
+		<if test="bigChannel !='' and  bigChannel !=null"> and big_channel like '%${bigChannel}%' </if>
+		</where> 
+		order by createtime desc limit #{startNum},#{pageSize}
+	</select>
+	
+	<select id="getOrderInfoListCount" resultType="int">
+		select count(1)
+		from tbl_order  LEFT OUTER JOIN tbl_channel_refresh ON additionalInfo=channel_name
+		<where>
+		<if test="channelname !='' and channelname != null "> and additionalInfo like '%${channelname}%' </if>
+		<if test="startTime !='' and startTime != null "> and createtime &gt;= '${startTime} 00:00:00' </if>
+		<if test="endTime !='' and endTime != null "> and createtime &lt;= '${endTime} 23:59:59' </if>
+		<if test="userType ==1"> and additionalInfo like '${userChannel}%' and result=1 </if>
+		<if test="userType ==5"> and additionalInfo like '${userChannel}%' and result=3 </if>
+		<if test="userType == 2 "> and result in (1,2) </if>
+		<if test="userChannel == 'admin'"> and result in (1,2,3) </if>
+		<if test="userChannel =='' or userChannel == null "> and 1=2 </if>
+		<if test="orderState !='' and orderState != null and orderState != 0"> and result=${orderState} </if>
+		<if test="userType == 2 "> and channel_owner = '${userChannel}' </if>
+		<if test="userType == 4 "> and common_type = ${channelType}  and result= 1</if>
+		<if test="bigChannel !='' and  bigChannel !=null"> and big_channel like '%${bigChannel}%' </if>
+		</where> 
+	</select>
+</mapper>

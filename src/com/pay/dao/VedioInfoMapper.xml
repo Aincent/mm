@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+    PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+    "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.pay.dao.VedioInfoMapper">
+	<select id="getVedioInfo" resultType="com.pay.entity.VedioInfo">
+		select id,cover,times,title,type,vedio,vip,newvedio from tbl_vedioinfo where vtype = #{vtype} order by postion asc 
+		<if test="pageSize != 0">
+			limit #{startNum},#{pageSize}
+		</if>
+	</select>
+	<select id="getVedioInfo_1" resultType="com.pay.entity.VedioInfo">
+		select * from tbl_vedioinfo where vtype = #{vtype} order by postion asc 
+		<if test="pageSize != 0">
+			limit #{startNum},#{pageSize}
+		</if>
+	</select>
+	<select id="getVedioInfoCount" resultType="int">
+		select count(1) from tbl_vedioinfo where vtype = #{vtype}
+	</select>
+	<insert id="insertVedioInfo">
+		insert into tbl_vedioinfo (title, times, cover, type, vedio,newvedio, vtype, postion,createtime) 
+			  values(#{title}, #{times}, #{cover}, #{type}, #{vedio}, #{newvedio},#{vtype}, #{postion}, now())
+	</insert>
+	<update id="updateVedioInfo">
+		update tbl_vedioinfo set title = #{title}, times = #{times}, cover = #{cover},
+					 type = #{type}, vedio = #{vedio}, newvedio = #{newvedio},vtype = #{vtype}, postion = #{postion} 
+		 where id = #{id}
+	</update>
+</mapper>

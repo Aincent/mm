@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pay.dao.UserDaoMapper">
+	<resultMap type="com.pay.entity.UserInfo" id="UserInfoLogin">
+		<result property="userId" column="user_id" />
+		<result property="userPassword" column="user_password" />
+		<result property="userType" column="user_type" />
+		<result property="userChannel" column="user_channel" />
+		<result property="channelType" column="channel_type" />
+		<result property="payType" column="pay_type" />
+	</resultMap>
+
+	<select id="login" resultMap="UserInfoLogin">
+		select user_id,user_password,user_type,user_channel,channel_type,pay_type 
+		from tbl_user 
+		<where>
+		user_id=#{userId} and user_password=#{userPassword}
+		</where> 
+	</select>
+
+</mapper>

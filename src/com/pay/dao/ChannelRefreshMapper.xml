@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pay.dao.ChannelRefreshMapper">
+	<resultMap type="com.pay.entity.ChannelRefresh" id="ChannelRefresh">
+		<result property="name" column="channel_name" />
+		<result property="type" column="channel_type" />
+		<result property="owner" column="channel_owner" />
+		<result property="big" column="big_channel" />
+		<result property="status" column="channel_status" />
+	</resultMap>
+
+	<!-- 根据查询数据 -->
+	<select id="getChannelRefreshList" resultMap="ChannelRefresh">
+		select * 
+		from tbl_channel_refresh  where channel_status='1' order by channel_type limit #{startNum},#{pageSize}
+	</select>
+
+	<select id="getChannelRefreshListCount" resultType="int">
+		select count(1) from tbl_channel_refresh where channel_status='1'
+	</select>
+	
+	<select id="getChannelRefresh" resultMap="ChannelRefresh">
+		select * 
+		from tbl_channel_refresh  where channel_name=#{channelName}
+	</select>
+
+	<select id="getChannelRefreshExist" resultType="int">
+		select count(1) from tbl_channel_refresh where channel_name=#{channelName}
+	</select>
+	
+	<insert id="insertChannelRefresh">
+		insert into tbl_channel_refresh (channel_name, channel_type,channel_owner,big_channel,channel_status) 
+			  values(#{channelRefresh.name}, #{channelRefresh.type}, #{channelRefresh.owner},#{channelRefresh.big},#{channelRefresh.status})
+	</insert>
+	
+	<update id="updaeChannelRefresh">
+		update tbl_channel_refresh set channel_type=#{channelRefresh.type},channel_owner=#{channelRefresh.owner},
+		big_channel=#{channelRefresh.big},channel_status=#{channelRefresh.status}
+		where channel_name=#{channelRefresh.name}
+	</update>
+	
+	<delete id="deleteChannelRefresh">
+		update tbl_channel_refresh set channel_status='0' where channel_name = #{channelName}
+	</delete>
+</mapper>
